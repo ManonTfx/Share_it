@@ -4,11 +4,15 @@ namespace App\Controller;
 
 use Doctrine\DBAL\Connection;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class HomeController extends AbstractController
 {
-    public function homepage(ResponseInterface $response)
+    public function homepage(ResponseInterface $response, ServerRequestInterface $request)
     {
+
+        //recuperer les fichiers envoyes:
+        $request->getUploadedFiles('files');
         return $this->template($response, 'home.html.twig');
     }
 
