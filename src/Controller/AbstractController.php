@@ -53,7 +53,7 @@ abstract class AbstractController
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    protected function template(ResponseInterface $response, string $template, array $vars = []) : ResponseInterface
+    protected function template(ResponseInterface $response, string $template, array $vars = []): ResponseInterface
     {
         $content = $this->twig->render($template, $vars);
         $stream = $this->streamFactory->createStream($content);
