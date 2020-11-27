@@ -9,4 +9,15 @@
 
 {% block body %}
    <h1> Share It!</h1>
+
+    <form  action="{{ link('homepage')}}" method="post" enctype="multipart/form-data" class="form">
+ <div class="form-group">
+   <label for="file">Sélectionner le fichier à envoyer</label>
+    </div>
+   <div class="form-group">
+  <input type="file" id="file" name="file" multiple>
+  </div>
+   <button class="btn btn-primary" type="submit">Envoyer</button>
+ 
+</form>
 {% endblock %}
