@@ -65,10 +65,27 @@ class HomeController extends AbstractController
         return $this->template($response, 'file_error.html.twig');
     }
 
-    public function download(ResponseInterface $response, int $id)
+    public function download(ResponseInterface $response, int $id, FileManager $filemanager)
     {
         //Affiche 'Identifiant: %d' sur la page download
-        $response->getBody()->write(sprintf('Identifiant: %d', $id));
-        return $response;
+        // $response->getBody()->write(sprintf('Identifiant: %d', $id));
+        // return $response;
+
+        //Recupere le fichier en base de donnée
+        $file = $filemanager->getById($id);
+        if ($file === null) {
+            return $this->redirect('file-error');
+        }
+
+        $fileName = $file->getFilename();
+
+        $pathFileName = __DIR__ . '/../../files/' . $fileName;
+
+        if (file_exists($pathFileName)) {
+            header('Content-Disposition: attachment;filename="' . basename($pathFileName) . '"');
+            readfile($pathFileName);
+            exit;
+        }
+        return $this->template($response, 'file_error.html.twig');
     }
 }
